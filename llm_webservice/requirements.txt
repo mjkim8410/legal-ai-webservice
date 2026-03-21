@@ -1,0 +1,13 @@
+# Core ML & embeddings
+accelerate
+transformers
+sentence-transformers
+chromadb
+
+# Web framework
+flask
+waitress
+
+# Other utilities
+python-docx
+
