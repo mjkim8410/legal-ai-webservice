@@ -8,6 +8,8 @@ A modern AI-powered legal question answering system that retrieves relevant lega
 
 This project is a full-stack web application that allows users to ask legal questions in natural language and receive answers grounded in real legal documents.
 
+It addresses a key limitation of LLMs — hallucination — by integrating **retrieval over legal corpora** before generation.
+
 It combines:
 
 * semantic search over legal texts
@@ -15,6 +17,18 @@ It combines:
 * large language model (LLM) generation
 
 to deliver reliable and explainable responses.
+
+---
+
+## 🔥 What I Built
+
+- Designed and implemented a **complete RAG pipeline** from scratch  
+- Built a backend API using Flask to handle query processing and inference  
+- Implemented semantic search using **ChromaDB vector database**  
+- Integrated **embedding model (BGE-m3)** for Korean legal text retrieval  
+- Integrated **LLM (Qwen)** for answer generation  
+- Optimized inference using **GPU acceleration (PyTorch CUDA)**  
+- Developed a React-based frontend for real-time interaction  
 
 ---
 
@@ -39,7 +53,7 @@ to deliver reliable and explainable responses.
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ System Architecture
 
 ```
 User Input (React Frontend)
@@ -193,19 +207,32 @@ http://localhost:5173
 
 ---
 
-## 🧠 Key Design Decisions
+## ⚙️ Key Design Decisions
 
-* **Persistent Vector DB**
-  Avoids rebuilding embeddings on every run
+### 1. Retrieval-Augmented Generation (RAG)
+- Avoided hallucination by grounding responses in retrieved legal documents  
+- Improved factual accuracy compared to pure LLM responses  
 
-* **Shared Model Instances**
-  Prevents reloading models per request → improves performance
+### 2. Persistent Vector Database
+- Precomputed embeddings stored in ChromaDB  
+- Eliminated repeated embedding computation → faster response time  
 
-* **GPU Utilization**
-  Enables real-time responses for LLM and embeddings
+### 3. Shared Model Instances
+- Prevented model reloading per request  
+- Reduced latency significantly  
 
-* **Modular Architecture**
-  Clear separation between parsing, DB, and inference
+### 4. GPU Acceleration
+- Used CUDA for embedding + LLM inference  
+- Enabled near real-time responses  
+
+---
+
+## 💡 Key Takeaways
+
+- Built a **production-like AI system architecture** combining backend + ML  
+- Gained hands-on experience with **RAG, vector databases, and LLM pipelines**  
+- Learned how to optimize model inference for real-world usage  
+- Understood trade-offs between retrieval quality and generation accuracy  
 
 ---
 
