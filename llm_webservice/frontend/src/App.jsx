@@ -11,10 +11,12 @@ function App() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
+  const [done, setDone] = useState(false);
 
   async function handleAsk() {
     if (loading) return;
     try {
+      setDone(false);
       setLoading(true);
       setAnswer("");
       const data = await askLegalQuestion(question);
@@ -23,6 +25,7 @@ function App() {
       console.error(err);
     } finally {
       setLoading(false);
+      setDone(true);
     }
   }
 
@@ -68,11 +71,10 @@ function App() {
 
       {/* Loading / Rosie Avatar + Text */}
       <div style={{ marginTop: "10px", textAlign: "center" }}>
-        <RosieAvatar isThinking={loading} />
+        <RosieAvatar isThinking={loading} isDone={done} />
         <div style={{ marginTop: "10px", fontSize: "16px" }}>
-          {loading
-            ? "🤔 로지가 열심히 찾는 중이에요… 🔍"
-            : "😊 로지가 답을 찾았어요!"}
+          {loading && <p>🤔 로지가 열심히 찾는 중이에요… 🔍</p>}
+          {!loading && done && <p>😊 로지가 답을 찾았어요!</p>}
         </div>
 
         {/* Pulse animation */}

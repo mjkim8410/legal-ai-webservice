@@ -4,7 +4,7 @@ import rosieSearchingHoverSvg from "../assets/rosie/rosie searching annoyed.svg"
 import rosieDefaultSvg from "../assets/rosie/rosie striking down.svg";
 import rosieHoverSvg from "../assets/rosie/rosie shocked.svg";
 
-export default function RosieAvatar({ isThinking }) {
+export default function RosieAvatar({ isThinking, isDone }) {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -20,35 +20,35 @@ export default function RosieAvatar({ isThinking }) {
     imageSrc = isThinking ? rosieSearchingSvg : rosieDefaultSvg;
   }
 
+  // Only render the image if thinking or done
+  if (!isThinking && !isDone) return null;
+
   return (
-    <div style={{ marginBottom: "20px" }}>
-      <div
+    <div
+      style={{
+        width: "500px",
+        height: "500px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        transition: "0.3s",
+        margin: "0 auto",
+        animation: isThinking && !clicked ? "pulse 1s infinite" : "none",
+        cursor: "pointer",
+      }}
+      onClick={handleClick}
+    >
+      <img
+        src={imageSrc}
+        alt="Rosie"
         style={{
-          width: "500px",
-          height: "500px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-          transition: "0.3s",
-          margin: "0 auto",
-          animation: isThinking && !clicked ? "pulse 1s infinite" : "none",
-          cursor: "pointer",
+          width: "90%",
+          height: "90%",
+          objectFit: "contain",
+          display: "block",
         }}
-        onClick={handleClick}
-      >
-        <img
-          src={imageSrc}
-          alt="Rosie"
-          style={{
-            width: "90%",
-            height: "90%",
-            objectFit: "contain",
-            display: "block",
-            margin: "0 auto",
-          }}
-        />
-      </div>
+      />
 
       <style>
         {`
