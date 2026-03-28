@@ -7,3 +7,5 @@ print("✅ Backend setup complete. Server starting...")
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port=5000)
+
+    print("✅ Server is running on http://localhost:5000")

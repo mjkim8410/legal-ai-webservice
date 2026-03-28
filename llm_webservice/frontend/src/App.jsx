@@ -1,70 +1,99 @@
-
 import { useState } from "react";
+import ChatInput from "./components/ChatInput";
+import Message from "./components/Message";
+import RosieAvatar from "./components/RosieAvatar";
+import AnswerCard from "./components/AnswerCard";
+import { askLegalQuestion } from "./services/api";
+import rosieDefaultSvg from "./assets/rosie/rosie holding up a hammer.svg";
+import "./App.css";
 
 function App() {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  async function askQuestion() {
-    console.log("clicked");
-
-    const res = await fetch("http://127.0.0.1:5000/ask", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ query: question }),
-    });
-
-    if (!res.ok) {
-      const text = await res.text();
-      console.error("Server error:", text);
-      return;
+  async function handleAsk() {
+    if (loading) return;
+    try {
+      setLoading(true);
+      setAnswer("");
+      const data = await askLegalQuestion(question);
+      setAnswer(data.answer);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-
-    const data = await res.json();
-    console.log(data);
-
-    setAnswer(data.answer);
   }
 
   return (
-    <div style={{ maxWidth: "600px", margin: "40px auto" }}>
-      <h1>Legal QA Demo</h1>
+    <div style={{ width: "100%", margin: "40px auto" }}>
 
-      <input
-        value={question}
-        onChange={(e) => setQuestion(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && question.trim() !== "") {
-            askQuestion();
-          }
-        }}
-        placeholder="개인정보법률에 관한 질문을 입력하세요"
-        style={{
-          width: "100%",
-          padding: "12px",
-          fontSize: "16px",
-          marginBottom: "10px"
-        }}
-      />
+      {/* Header (narrower) */}
+      <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+        <h1
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "20px",
+            margin: 0,
+            fontSize: "68px"
+          }}
+        >
+          <img src={rosieDefaultSvg} style={{ height: "120px" }} />
+          법률 도우미 로지
+        </h1>
+      </div>
 
-      <button 
-        onClick={askQuestion}
-        style={{ padding: "10px 20px" }}
-      >
-        Ask
-      </button>
-
-      {answer && (
-        <div style={{ marginTop: "20px" }}>
-          <h3>Answer</h3>
-          <p>{answer}</p>
+      {/* Search area (wider) */}
+      <div style={{ width: "70%", margin: "40px auto", padding: "0 40px" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "stretch",
+            gap: "20px"
+          }}
+        >
+          <div style={{ display: "flex", width: "100%" }}>
+            <ChatInput
+              question={question}
+              setQuestion={setQuestion}
+              onSubmit={handleAsk}
+              loading={loading}
+            />
+          </div>
         </div>
-      )}
+      </div>
+
+      {/* Loading / Rosie Avatar + Text */}
+      <div style={{ marginTop: "10px", textAlign: "center" }}>
+        <RosieAvatar isThinking={loading} />
+        <div style={{ marginTop: "10px", fontSize: "16px" }}>
+          {loading
+            ? "🤔 로지가 열심히 찾는 중이에요… 🔍"
+            : "😊 로지가 답을 찾았어요!"}
+        </div>
+
+        {/* Pulse animation */}
+        <style>
+          {`
+            @keyframes pulse {
+              0% { transform: scale(1); }
+              50% { transform: scale(1.05); }
+              100% { transform: scale(1); }
+            }
+          `}
+        </style>
+      </div>
+
+      {/* Answer */}
+      <div style={{ display: "flex", width: "90%", margin: "auto" }}>
+        <AnswerCard answer={answer} />
+      </div>
+
     </div>
   );
 }
 
 export default App;
-

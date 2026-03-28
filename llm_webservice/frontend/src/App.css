@@ -17,6 +17,102 @@
   }
 }
 
+.send-button {
+  position: absolute;
+  right: 8px;
+  bottom: 11px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 24px;
+  cursor: pointer;
+  background: white;
+  color: #333;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.send-button:hover,
+.send-button:focus {
+  border: 2px solid #ff77aa; /* 핑크색 glow */
+  box-shadow: 0 0 12px rgba(255, 119, 170, 0.6);
+  transform: scale(1.05);
+  outline: none;
+}
+
+.send-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+.answer-card {
+  margin-top: 24px;
+  padding: 20px;
+  border-radius: 16px;
+  background: #a7a7a7;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  text-align: left;
+}
+
+/* chat input box */
+
+.chat-textarea {
+  font-family: 
+    "Noto Sans KR",
+    sans-serif;
+  font-size: 20px;
+  width: 100%;
+  flex: 1;
+  padding: 16px;
+  padding-right: 70px;
+  border-radius: 24px;
+  border: 1px solid #ccc;
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.chat-textarea:focus {
+  transform: scale(1.01);
+  border: 2px solid #ff77aa;
+  box-shadow: 0 0 12px rgba(255, 119, 170, 0.6);
+}
+
+.chat-textarea::placeholder {
+  font-weight: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  opacity: 1;
+}
+
+.section {
+  margin-bottom: 16px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.section p {
+  margin: 0;
+  line-height: 1.5;
+  color: #444;
+}
+
+.warning {
+  background: #fff4f4;
+  padding: 12px;
+  border-radius: 12px;
+}
+
 .hero {
   position: relative;
 
@@ -181,4 +277,36 @@
     right: 0;
     border-right-color: var(--border);
   }
+}
+
+body {
+  font-family: 
+    "Noto Sans KR",
+    sans-serif;
+  line-height: 1.6;
+}
+
+h1 {
+  font-weight: 500;
+  font-family: 
+    "Noto Sans KR",
+    sans-serif;
+  line-height: 1.6;
+}
+
+body {
+  background-color: #101622;
+  font-weight: 400;
+  font-family: 
+    "Noto Sans KR",
+    sans-serif;
+  line-height: 1.6;
+}
+
+button {
+  font-weight: 500;
+  font-family: 
+    "Noto Sans KR",
+    sans-serif;
+  line-height: 1.6;
 }
